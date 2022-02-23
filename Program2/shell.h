@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstring>
 
+
 using namespace std;
 
 const int MAXLINE = 80;
