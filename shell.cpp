@@ -19,9 +19,11 @@ void shell::displayHist() {
 	}
 	else {
 		int begin = 0;
-
-		if (history.size() > 10)
-			int begin = history.size() - 10;
+		cout << history.size();
+		if (history.size() > 10) {
+			int size = history.size();
+			begin = size - 10;
+		}
 
 		for (int i = begin; i < history.size(); i++) {
 			cout << "command " << i + 0 << " is " << history[i] << endl;
@@ -32,11 +34,11 @@ void shell::displayHist() {
 void shell::parseline(char buf [], char* make []){
 	int i = 0;
 
-	char* c = strtok(buf, " ");
+	char* c = strtok(buf, "(");
 
 	while (c != NULL) {
 		make[i] = c;
-		c = strtok(NULL, " ");
+		c = strtok(NULL, "(");
 		i++;
 	}
 }
