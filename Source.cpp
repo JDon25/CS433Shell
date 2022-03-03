@@ -12,11 +12,16 @@ int main() {
 		char* make[MAXLINE / 2 + 1];
 
 		cout << "command?";
-
+    
 		cin.getline(entry, MAXLINE);
 
 		comand.parseline(entry, make);
 
-		comand.execCommUser(make);
+		if (comand.isUserComm(make)){
+      comand.execCommUser(make);
+    }
+    else{
+      comand.ShellComm(make);
+    }
 	}
 }

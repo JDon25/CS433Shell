@@ -11,11 +11,13 @@ class shell {
 
 public:
 	shell();
-	bool active;
+  bool active;
+  bool amper;
+  void displayHist();
 	void parseline(char buf [], char* make []);
 	void execCommUser(char* make[]);
-	void displayHist();
-
+  void ShellComm(char* make[]);
+  bool isUserComm (char* make[]);
 private:
 	vector<string> history;
 };
