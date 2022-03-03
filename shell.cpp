@@ -67,13 +67,32 @@ void shell::execCommUser(char* make[]) {
 		history.push_back(comm);
 		displayHist();
 	}
+  else if (comm[0] == '!'){
+    char code[MAXLINE];
+    char* make[MAXLINE / 2+1];
+    int his = history.size();
+    if(history.empty()){
+      cout<<"Nothing left in the history!"<< endl;      
+    }
+    else{
+      strcpy(code, history[his-1].c_str());
+      history.push_back(code);
+      parseline(code, make);
+      if(isUserComm(make))
+        execCommUser(make);
+      else
+        ShellComm(make);
+      
+    }
+      
+  }
 }
 
 
 bool shell::isUserComm(char* make[]){
   string comm(make[0]);
   bool user = false;
-  if(comm == "exit" || comm == "history"){
+  if(comm == "exit" || comm == "history" || comm == "!"){
     user = true;
   }
   return user;
@@ -85,7 +104,6 @@ void shell::ShellComm(char* make[]){
   
   pid_t pid = fork();
 
-  cout<< "Shell "<<pid << endl;
   if(pid == 0){
     
     execvp(make[0], make);
@@ -99,11 +117,11 @@ void shell::ShellComm(char* make[]){
       wait(NULL);
     }
     else{
-      cout << "not waiting";
+      cout << "parent"<< endl;
     }
   }
   else{
-    cout << "The fork has faild";
+    cout << "The fork has faild" << endl;
     exit(1);
     
   }
